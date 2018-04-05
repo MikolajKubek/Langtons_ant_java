@@ -7,10 +7,10 @@ public class Matrix {
     {
         this.r = r;
         this.c = c;
-        this.t = new int[r][c];
-        for(int i = 0; i < r; i++)
+        this.t = new int[c][r];
+        for(int i = 0; i < c; i++)
         {
-            for(int j = 0; j < c; j++)
+            for(int j = 0; j < r; j++)
                 t[i][j] = 0;
         }
     }
