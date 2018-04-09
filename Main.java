@@ -1,37 +1,25 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import javax.swing.*;
 
 public class Main {
 
     public static void main(String[] argc)
     {
-        NFrame frame = new NFrame(0,0,1000,500);
-        Screen window = new Screen(50,50,400,400);
-        Matrix matrix = new Matrix(160, 160);
+        NFrame frame = new NFrame(0,0,1010,1010);
+        Screen window = new Screen(50,50,500,500);
+        Matrix matrix = new Matrix(250, 250);
         frame.add(window);
-        Random rand = new Random();
-
-        window.InitColors(100);
-
-        List<Ant> ants = new ArrayList<>();
-
-        for(int i = 0; i < 30; i++)
-        {
-            ants.add(new Ant(rand.nextInt(matrix.getC()), rand.nextInt(matrix.getR()), rand.nextInt(4), i+1));
-        }
-
-        for(int k = 0; k < 1000000; k++) {
-
-            for(Ant ant: ants)
-                ant.MakeMove(matrix);
-            window.setIcon(window.CreateContent(matrix));
 
 
-            try {Thread.sleep(10);}
-            catch (InterruptedException e) {System.out.println(e);}
+        JSlider slider = new JSlider(JSlider.HORIZONTAL, 1, 100,15);
+        slider.setVisible(true);
+        slider.setBounds(window.getX(), window.getY() + window.getHeight() + (int)0.1 * window.getHeight(), window.getWidth(), 50);
+        frame.add(slider);
 
-        }
-        /*window.setIcon(window.CreateContent(matrix));*/
+        StartStop ss = new StartStop(5, 11000, window, matrix, slider);
+        frame.add(ss);
+        ss.setBounds(window.getX() +  window.getWidth() + window.getWidth()/4, window.getY(), window.getWidth()/4, window.getWidth()/4);
+        ss.setVisible(true);
+
+
     }
 }
