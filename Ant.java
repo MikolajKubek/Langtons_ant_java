@@ -17,10 +17,7 @@ public class Ant {
         return this.x;
     }
 
-    public int getY()
-    {
-        return this.y;
-    }
+    public int getY() { return this.y; }
 
     public int getPos()
     {

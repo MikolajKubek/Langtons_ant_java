@@ -16,7 +16,7 @@ public class StartStop extends JButton{
     Timer timer = new Timer(0, new OnclickListener());
 
 
-    public StartStop(int amountOfAnts, int steps, Screen screen, Matrix matrix, JSlider slider)
+    public StartStop(int steps, Screen screen, Matrix matrix, JSlider slider)
     {
         this.steps = steps;
         this.slider = slider;
@@ -26,15 +26,7 @@ public class StartStop extends JButton{
         this.state = 0; /*off, showing play button*/
         setText("Start");
 
-        this.screen.InitColors(amountOfAnts);
 
-        Random rand = new Random();
-
-        for(int i = 0; i < amountOfAnts; i++)
-        {
-            this.ants.add(new Ant(rand.nextInt(this.matrix.getC()), rand.nextInt(this.matrix.getR()), rand.nextInt(4), i+1));
-            System.out.println(i);
-        }
 
         addActionListener(new ActionListener() {
             @Override
@@ -60,10 +52,10 @@ public class StartStop extends JButton{
         public void actionPerformed(ActionEvent e)
         {
                 timer.setDelay(slider.getMaximum() + 1 - slider.getValue());
-                System.out.println(timer.getDelay());
-                if (steps-- > 0)
+                if (steps-- != 0)
                     ProcessAutomata();
                 else {
+                    steps--;
                     timer.stop();
                     state = 0;
                     setText("Koniec");
@@ -85,6 +77,14 @@ public class StartStop extends JButton{
             catch (InterruptedException e) {System.out.println(e);}
 
 
+    }
+
+    public void addAnt(int x, int y)
+    {
+
+        Random rand = new Random();
+        this.ants.add(new Ant(x, y, rand.nextInt(4), ants.size()+1));
+        this.screen.InitColors();
     }
 
 }
